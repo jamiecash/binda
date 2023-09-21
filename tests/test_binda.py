@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 """
+Unit tests for the binda module
+
 Created on Wed Sep 20 15:48:53 2023
 
-@author: jlcas
+@author: Jamie Cash
 """
 
 import binda as bd

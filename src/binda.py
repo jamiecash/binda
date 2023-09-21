@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 """
+Read and write binary data to and from Pandas DataFrames.
+
 Created on Wed Sep 20 15:27:01 2023
 
-@author: jlcash
+@author: Jamie Cash
 """
 
 from enum import Enum
@@ -123,24 +125,42 @@ class DataHandler:
 
   Arguments:
       data (bytes): The data.
-      structures (dict of str, Structure): The specification of any data
-        structures. The dict key is the name of the structure that will be used
-        when reading and updating.
+      structures (dict of str, Structure, optional): The specification of any 
+        data structures. The dict key is the name of the structure that will 
+        be used when reading and updating. If not specified, then 
+        read_structure and write_structure cannot be used, however DataHandler
+        can still be used to read and write variables.
+      str_encode (str, optional): The string encoding. See 
+        https://docs.python.org/3/library/codecs.html#standard-encodings for 
+        a list of all encodings. Default is utf-8.
   """
 
   __data: bytes
   __structures: Dict[str, Structure]
+  __str_encode: str
 
-  def __init__(self, data: bytes, structures: Dict[str, Structure]):
+  def __init__(self, data: bytes, structures: Dict[str, Structure]=None, 
+               str_encode='utf-8'):
     """
     Create the handler
     """
     self.__data = data
     self.__structures = structures
+    self.__str_encode = str_encode
 
   @property
   def data(self):
     return self.__data
+  
+  def add_structure(self, name: str, structure: Structure):
+    """
+    Adds a structure.
+
+    Args:
+      name (str): The name of the structure to add.
+      structure (Structure): The structure.
+    """
+    self.__structures[name] = structure
 
   def read_structure(self, name: str) -> pd.DataFrame:
     """
@@ -155,6 +175,7 @@ class DataHandler:
       structure.
     """
     # Assert that structure exists.
+    assert self.__structures is not None, "There are no structures defined."
     assert self.__structures is not None and name in self.__structures
 
     # Get the structure
@@ -211,7 +232,7 @@ class DataHandler:
                                       byteorder=variable.byteorder.value,
                                       signed=variable.signed)
     elif variable.datatype == str:
-      converted_data = (str( bytes_data.decode('utf8')))
+      converted_data = (str( bytes_data.decode(self.__str_encode)))
     elif variable.datatype == bool:
       converted_data = bool.from_bytes(bytes_data,
                                        byteorder=variable.byteorder.value,
@@ -236,6 +257,7 @@ class DataHandler:
       df (pd.DataFrame): The dataframe to write.
     """
      # Assert that structure exists.
+    assert self.__structures is not None, "There are no structures defined."
     assert self.__structures is not None and name in self.__structures
 
     # Get the structure
@@ -300,7 +322,7 @@ class DataHandler:
 
      # Write the data.
     if variable.datatype == str:
-      self.__write(full_offset, data.encode('utf-8'))
+      self.__write(full_offset, data.encode(self.__str_encode))
     elif variable.datatype in [int, bool]:
       self.__write(full_offset,
                    data.to_bytes(variable.size,
