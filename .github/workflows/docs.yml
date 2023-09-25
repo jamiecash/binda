@@ -27,7 +27,7 @@ jobs:
       - run: pip install -r requirements.txt
       
       # Build documentation into docs/.
-      - run: pdoc --docformat google -o /docs src/binda.py
+      - run: pdoc --docformat google -o docs/ src/binda.py
 
       - uses: actions/upload-pages-artifact@v2
         with:
