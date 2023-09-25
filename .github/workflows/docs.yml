@@ -24,7 +24,7 @@ jobs:
           python-version: '3.11'
 
       # Install all dependencies (including pdoc)
-      - run: pip install -e pdoc
+      - run: pip install -e
       
       # Build documentation into docs/.
       - run: pdoc --docformat google -o /docs src/binda.py
