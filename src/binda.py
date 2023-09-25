@@ -16,9 +16,8 @@ import struct
 
 class ByteOrder(Enum):
     """
-    THe order of bytes in a variable. Can be:
-        * LITTLE for little endian; or
-        * BIG for big endian.
+    The order of bytes in a variable. Can be ByteOrder.LITTLE for little endian
+    or ByteOrder.BIG for big endian.
     """
     LITTLE = 'little'
     BIG = 'big'
@@ -141,9 +140,6 @@ class DataHandler:
 
   def __init__(self, data: bytes, structures: Dict[str, Structure]=None, 
                str_encode='utf-8'):
-    """
-    Create the handler
-    """
     self.__data = data
     self.__structures = structures
     self.__str_encode = str_encode
@@ -156,9 +152,9 @@ class DataHandler:
     """
     Adds a structure.
 
-    Args:
+    Arguments:
       name (str): The name of the structure to add.
-      structure (Structure): The structure.
+      structure (Structure): The structure to add.
     """
     if self.__structures is None:
       self.__structures = {name: structure}
@@ -180,8 +176,8 @@ class DataHandler:
         is ':'.
 
     Returns:
-      (str): The bytes as a string of hexadecimal byte 
-        representations seperated by [seperator]].
+      (str): The bytes as a string of hexadecimal byte representations seperated 
+        by [seperator].
     """
     # Calculate and set length if not specified.
     if length is None:
@@ -328,9 +324,6 @@ class DataHandler:
       offset (int, optional): Offset to apply. Added to variable offset. Used
         to write repeating structures. If not specified, then no offset is 
         applied.
-
-    Returns:
-      object: The variable converted to the data type specified in [variable].
     """
     # Convert to native types.
     if isinstance(data, np.integer):

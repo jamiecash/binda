@@ -60,13 +60,13 @@ author_struct = \
                         bd.Variable('POINTS', 2, int, 
                                     byteorder=bd.ByteOrder.BIG, signed=True)])
 handler.add_structure('author', author_struct)
-dataframe = handler.read_structure('author')
-print(f"Author Data\n{dataframe}")
+df = handler.read_structure('author')
+df
 ```
 ![image](example/img/single_structure.png)
 
-The three row repeating structure can be read in a similar way, also specifying 
-the number of rows.
+The three row repeating structure can be read in a similar way, but this time
+also specifying the number of rows.
 
 ```python
 people_struct = \
