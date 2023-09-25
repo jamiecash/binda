@@ -25,7 +25,6 @@ jobs:
 
       # Install all dependencies (including pdoc)
       - run: pip install -r requirements.txt
-      - run: pip install -e binda
       
       # Build documentation into docs/.
       - run: pdoc --docformat google -o /docs src/binda.py
