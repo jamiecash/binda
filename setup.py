@@ -8,7 +8,7 @@ setup(
   author = 'Jamie Cash',
   author_email = 'jlcash@gmail.com',
   url = 'https://github.com/jamiecash',
-  download_url = 'https://github.com/jamiecash/binda/archive/v_01.tar.gz',
+  download_url = 'https://github.com/jamiecash/binda/archive/v_0.1.0.tar.gz',
   keywords = ['Binary', 'Data', 'Analytics', 'Analyse', 'Pandas', 'DataFrame'], 
   install_requires=[
           'pandas',
