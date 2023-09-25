@@ -11,11 +11,6 @@ binda can be installed using pip.
 pip install binda
 ```
 
-binda can be installed in conda environments using conda.
-```
-conda install binda
-```
-
 ## Usage
 Given the following binary data (represented as hex):
 ```
