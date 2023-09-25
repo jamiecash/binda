@@ -160,7 +160,39 @@ class DataHandler:
       name (str): The name of the structure to add.
       structure (Structure): The structure.
     """
-    self.__structures[name] = structure
+    if self.__structures is None:
+      self.__structures = {name: structure}
+    else:
+      self.__structures[name] = structure
+
+  def read_hex(self, start: int=0, length: int=None, seperator: str=':') -> str:
+    """
+    Returns data as a easily readable string of hexadecimal 
+    characters.
+
+    Arguments:
+      start (int, optional): The starting postion to read from. Default is the
+        first byte of the data.
+      length (int, optional): The number of bytes to return. Default is the 
+        number of bytes available to read in the data given the specified 
+        [start].
+      seperator (str, optional): The seperator character for hex bytes. Default 
+        is ':'.
+
+    Returns:
+      (str): The bytes as a string of hexadecimal byte 
+        representations seperated by [seperator]].
+    """
+    # Calculate and set length if not specified.
+    if length is None:
+      length = len(self.data) - start
+
+    # Check that start and length are valid given size of data.
+    assert start < len(self.data)
+    assert start + length <= len(self.data)
+    
+    # Return the data as a hex string
+    return self.data[start:start+length].hex(seperator)
 
   def read_structure(self, name: str) -> pd.DataFrame:
     """

@@ -273,6 +273,19 @@ class TestDataHandler(unittest.TestCase):
                      pd.Series({'ID': 200, 
                                 'NAM': 'Bobby Smythe   ',
                                 'ACTIVE': True}).all())
+    
+  def test_read_hex(self):
+    # Create the DataHandler 
+    handler = bd.DataHandler(self.data, self.structures)
+
+    # The 10 bytes starting at position 5 should have a hex string of 
+    # '44|41|54|41|64|4a|61|6d|69|65' when seperated by |
+    assert handler.read_hex(5,10, '|') == '44|41|54|41|64|4a|61|6d|69|65'
+
+    # Test the defaults. The length of the string shold be length of data * 
+    # 3 - 1 as there are 3 characters for each byte including the seperator,
+    # except for the last byte where there isn't a seperator.
+    assert len(handler.read_hex()) == len(self.data) * 3 -1
 
 
 if __name__ == '__main__':
