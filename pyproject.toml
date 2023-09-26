@@ -8,6 +8,7 @@ version = "0.1.2"
 authors = [
   { name="Jamie Cash", email="jlcash@gmail.com" },
 ]
+
 description = "Read and write binary data using Pandas"
 readme = "README.md"
 dependencies = [
@@ -24,3 +25,6 @@ classifiers = [
 [project.urls]
 "Homepage" = "https://github.com/jamiecash/binda"
 "Bug Tracker" = "https://github.com/jamiecash/binda/issues"
+
+[tool.hatch.build]
+sources = ["src","tests"]
