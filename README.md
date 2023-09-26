@@ -11,6 +11,10 @@ binda can be installed using pip.
 pip install binda
 ```
 
+## Docs
+The documentation for binda is available on GitHub Docs here: 
+https://jamiecash.github.io/binda/binda.html
+
 ## Usage
 Given the following binary data (represented as hex):
 ```
