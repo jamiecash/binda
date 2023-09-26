@@ -36,7 +36,8 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Add src folder to path
       run: |
-        echo "src" >> $GITHUB_PATH 
+        echo "src;" >> $GITHUB_PATH
+        echo "$PATH"
     - name: Test with pytest
       run: |
         pytest
