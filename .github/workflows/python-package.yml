@@ -36,7 +36,8 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Add src and tests folders to python path
       run: |
-        export PYTHONPATH=$./src:$./tests:$PYTHONPATH
+        echo "PYTHONPATH=$PYTHONPATH"
+        export PYTHONPATH=./src:./tests:$PYTHONPATH
         echo "PYTHONPATH=$PYTHONPATH"
         echo "PYTHONPATH=$PYTHONPATH" >> $GITHUB_ENV
     - name: Test with pytest
