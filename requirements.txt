@@ -6,7 +6,6 @@ numpy
 # Generating documentation, building and deploying to PyPi and conda
 
 # Conda Deploy
-conda-build
 grayskull
 
 # Project build and deploy - pyproject.tom;
