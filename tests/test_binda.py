@@ -287,6 +287,67 @@ class TestDataHandler(unittest.TestCase):
     # except for the last byte where there isn't a seperator.
     assert len(handler.read_hex()) == len(self.data) * 3 -1
 
+  def test_read_invalid(self):
+    # Test that exception is raised when attempting to read a structre when no 
+    # structures have been defined and when there is not a structure with name
+    # defined.
+    
+    # Create the DataHandler with no structures
+    handler = bd.DataHandler(self.data)
+
+    # Try and read the people structure. Should raise an AssertionException.
+    with self.assertRaises(AssertionError) as context:
+      handler.read_structure('people')
+    self.assertEqual(str(context.exception), "There are no structures defined.")
+
+    # Add a structure, then try and read it but with a misspelt name. Should 
+    # raise an AssertionException.
+    handler.add_structure('people', self.structures['people'])
+    with self.assertRaises(AssertionError) as context:
+      handler.read_structure('peoplee')
+    self.assertEqual(str(context.exception), "Structure with name 'peoplee' "\
+                     + "does not exist. Add it using [add_structure] before "\
+                     + "reading.")
+    
+  def test_write_invalid(self):
+    # Test that exception is raised when attempting to write to a structre when 
+    # no structures have been defined and when there is not a structure with 
+    # name defined.
+    
+    # Create the DataHandler with no structures
+    handler = bd.DataHandler(self.data)
+
+    # Try and write the people structure. Should raise an AssertionException.
+    with self.assertRaises(AssertionError) as context:
+      handler.write_structure('people', pd.DataFrame())
+    self.assertEqual(str(context.exception), "There are no structures defined.")
+
+    # Add a structure, then try and read it but with a misspelt name. Should 
+    # raise an AssertionException.
+    handler.add_structure('people', self.structures['people'])
+    with self.assertRaises(AssertionError) as context:
+      handler.write_structure('peoplee', pd.DataFrame())
+    self.assertEqual(str(context.exception), "Structure with name 'peoplee' "\
+                    + "does not exist. Add it using [add_structure] before "\
+                    + "writing to it.")
+    
+  def test_invald_bounds(self):
+    # Test that an exception is raised when trying to access out of bounds data.
+    handler = bd.DataHandler(self.data)
+    
+    # Test invalid lower bound
+    with self.assertRaises(AssertionError) as context:
+      handler.read_variable(bd.Variable('test', 10, str, 100))
+    self.assertEqual(str(context.exception), 
+                     "Offset 100 is out of bounds for data of length 83.")
+    
+    # Test invalid upper bound
+    with self.assertRaises(AssertionError) as context:
+      handler.read_variable(bd.Variable('test', 100, str, 10))
+    self.assertEqual(str(context.exception), 
+                     "Length 100 is out of bounds for data length 83 "\
+                     + "starting at 10.")
+
 
 if __name__ == '__main__':
     unittest.main()

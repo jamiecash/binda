@@ -136,14 +136,19 @@ class DataHandler:
   """
 
   __data: bytes
-  __structures: Dict[str, Structure]
+  __structures: Dict[str, Structure] = None
   __str_encode: str
 
   def __init__(self, data: bytes, structures: Dict[str, Structure]=None, 
                str_encode='utf-8'):
     self.__data = data
-    self.__structures = structures
     self.__str_encode = str_encode
+
+    # Add the structures individually to benifit for boundary checks.
+    if structures is not None:
+      for structure_name in structures.keys():
+        self.add_structure(structure_name, structures[structure_name])
+
 
   @property
   def data(self):
@@ -154,9 +159,14 @@ class DataHandler:
     Adds a structure.
 
     Arguments:
-      name (str): The name of the structure to add.
+      name (str): The name of the structure to add. If structure already exists 
+        with that name, it will be overwritten.
       structure (Structure): The structure to add.
     """
+    # Check that the structure is within the bounds of the data
+    self.__check_bounds(structure.start, len(structure))
+
+    # Create the structure if not already created and add the structure.
     if self.__structures is None:
       self.__structures = {name: structure}
     else:
@@ -184,9 +194,8 @@ class DataHandler:
     if length is None:
       length = len(self.data) - start
 
-    # Check that start and length are valid given size of data.
-    assert start < len(self.data)
-    assert start + length <= len(self.data)
+    # Check that bounds
+    self.__check_bounds(start, length)
     
     # Return the data as a hex string
     return self.data[start:start+length].hex(seperator)
@@ -205,7 +214,8 @@ class DataHandler:
     """
     # Assert that structure exists.
     assert self.__structures is not None, "There are no structures defined."
-    assert self.__structures is not None and name in self.__structures
+    assert name in self.__structures, f"Structure with name '{name}' does not "\
+      + "exist. Add it using [add_structure] before reading."
 
     # Get the structure
     structure = self.__structures[name]
@@ -252,6 +262,7 @@ class DataHandler:
     # Get the data as bytes
     full_offset = variable.offset if offset is None else variable.offset + \
         offset
+    self.__check_bounds(full_offset, variable.size)
     bytes_data = self.__read(full_offset, variable.size)
 
     # Convert it to the correct data type
@@ -288,17 +299,22 @@ class DataHandler:
     """
      # Assert that structure exists.
     assert self.__structures is not None, "There are no structures defined."
-    assert self.__structures is not None and name in self.__structures
+    assert name in self.__structures, f"Structure with name '{name}' does not "\
+      + "exist. Add it using [add_structure] before writing to it."
 
     # Get the structure
     structure = self.__structures[name]
 
     # Check that the column names of the dataframe matches the variable names.
     for i in range(len(df.columns)):
-      assert df.columns[i] == structure.variables[i].name
+      assert df.columns[i] == structure.variables[i].name, \
+        f"Structure name '{structure.variables[i].name}' does not match " \
+        + f"DataFrame column name 'df.columns[i]'."
 
     # Check that number of rows matches [structure.rows]
-    assert df.shape[0] == structure.rows
+    assert df.shape[0] == structure.rows, \
+      f"Number of rows in DataFrame ({df.shape[0]}) does not match number of "\
+        + f"rows in structure ({structure.rows})."
 
     # Iterate the rows of the dataframe saving its contents to [data]
     for row in range(structure.rows):
@@ -345,6 +361,9 @@ class DataHandler:
     # variable offset.
     full_offset = variable.offset if offset is None else variable.offset \
         + offset
+    
+    # Check the bounds
+    self.__check_bounds(full_offset, variable.size)
 
      # Write the data.
     if variable.datatype == str:
@@ -360,6 +379,21 @@ class DataHandler:
     else:
       self.__write(full_offset, data)
 
+  def __check_bounds(self, offset:int, length:int):
+    """
+    Checks that the offset and length is within the bounds of the data.
+
+     Arguments:
+      offset (int): The start position to test.
+      length: The number of bytes to test.
+    """
+    assert offset < len(self.data), f"Offset {offset} is out of bounds for "\
+      + f"data of length {len(self.data)}."
+    
+    assert offset + length <= len(self.data), f"Length {length} is out of "\
+      + f"bounds for data length {len(self.data)} starting at {offset}."
+    
+
   def __read(self, offset:int, length:int) -> bytes:
     """
     Gets the bytes from [data] at offset.
@@ -372,6 +406,7 @@ class DataHandler:
     Returns:
       bytes: The [length] bytes starting at [offset]
     """
+    self.__check_bounds(offset, length)
     return self.__data[offset:offset+length]
 
 
@@ -385,5 +420,6 @@ class DataHandler:
         updated.
       value: The value to write.
     """
+    self.__check_bounds(offset, len(value))
     self.__data = self.__data[:offset] + value \
         + self.__data[offset+len(value):]
