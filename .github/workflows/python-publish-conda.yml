@@ -19,9 +19,9 @@ jobs:
         python -m pip install --upgrade grayskull
     - name: Generate conda recepie
       run: |
-        grayskull pypi binda --output conda
+        grayskull pypi binda
     - name: publish-to-conda
       uses: maxibor/conda-package-publish-action@v1.1
       with:
-        subDir: 'conda'
+        subDir: 'binda'
         AnacondaToken: ${{ secrets.ANACONDA_TOKEN }}  
