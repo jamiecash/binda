@@ -67,7 +67,7 @@ handler.add_structure('author', author_struct)
 df = handler.read_structure('author')
 df
 ```
-![image](example/img/single_structure.png)
+![image](https://github.com/jamiecash/binda/raw/main/example/img/single_structure.png)
 
 The three row repeating structure can be read in a similar way, but this time
 also specifying the number of rows.
@@ -83,7 +83,7 @@ df = handler.read_structure('people')
 df
 ```
 
-![image](example/img/repeating_structure.png)
+![image](https://github.com/jamiecash/binda/raw/main/example/img/repeating_structure.png)
 
 The dataframe can be edited, and saved back to edit the binary data.
 
@@ -101,7 +101,7 @@ df = handler.read_structure('people')
 df
 ```
 
-![image](example/img/repeating_structure_changed.png)
+![image](https://github.com/jamiecash/binda/raw/main/example/img/repeating_structure_changed.png)
 
 We can also check the binary data to see the change.
 ```python
