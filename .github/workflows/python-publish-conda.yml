@@ -1,0 +1,28 @@
+name: Publish to Anaconda
+
+on:
+  release:
+    types: [published]
+jobs:
+  deploy:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: '3.x'
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install build
+    - name: Generate conda recepie
+      run: |
+        grayskull pypi binda --output conda
+    - name: publish-to-conda
+      uses: maxibor/conda-package-publish-action@v1.1
+      with:
+        subDir: 'conda\binda'
+        AnacondaToken: ${{ secrets.ANACONDA_TOKEN }}  
