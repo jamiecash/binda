@@ -135,4 +135,4 @@ fix.
 * Email me at jlcash@gmail.com to discuss the changes made.
 * Once changes have been agreed, I will merge or close the pull request.
 * Sync the updated master back to your fork.
-* Add a comment to the issues that were fixed. These will be closed.
+* Add a comment to the issues that were fixed and once tested, close them.

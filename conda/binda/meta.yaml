@@ -1,0 +1,46 @@
+{% set name = "binda" %}
+{% set version = "1.0.3" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/binda-{{ version }}.tar.gz
+  sha256: 79a27e4d7921b1dc7c6e14c20ba20886b8b17e7a795111ee517c3cc5f0064f34
+
+build:
+  entry_points:
+    - hatch = hatch.cli:main
+  noarch: python
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  number: 0
+
+requirements:
+  host:
+    - python >=3.6
+    - hatchling
+    - hatch-vcs
+    - pip
+  run:
+    - python >=3.6
+    - pandas
+    - numpy
+
+test:
+  imports:
+    - binda
+  commands:
+    - pip check
+    - hatch --help
+  requires:
+    - pip
+
+about:
+  summary: Read and write binary data using Pandas
+  license: MIT
+  license_file: LICENSE
+
+extra:
+  recipe-maintainers:
+    - jking-ca
