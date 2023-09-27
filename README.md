@@ -30,7 +30,7 @@ Which contaains:
 * A 9 bytes string containing 'BLOCKDATA'
 * 3 repeating records of 17 bytes containing a 1 byte integer ID, a 15 bytes 
 string NAME and a 1 byte interger ACTIVE flag
-* 18 bytes containing a 15 bytes string AUTHOR, a 2 bytes integer ID and a 
+* 19 bytes containing a 15 bytes string AUTHOR, a 2 bytes integer ID and a 
 2 bytes bigendian signed integer POINTS.
 
 First create the data handler with the data.
@@ -53,7 +53,7 @@ print("Name: " + handler.read_variable(bd.Variable('name', 15, str, 10)))
 Name: Jamie Cash
 ```
 
-The 18 bytes of author data starting at offset 60 can be read into a Pandas 
+The 19 bytes of author data starting at offset 60 can be read into a Pandas 
 DataFrame by specifying the layout of the structure, including its variables. 
 The DataHandler can then be used to read it.
 
@@ -116,3 +116,23 @@ b'\xc8Bobby Smythe   \x01'
 2 Jupyter notebooks are provided in the examples folder, one containing the code 
 from the **Usage** section above and one containing an example on reading and 
 writimg Exif data to a .jpeg file.
+
+## Joining the Project Team
+This project is maintained on [GitHub](https://github.com/jamiecash/binda):
+
+If you would like to contribute to this project by fixing issues or adding 
+features, please follow the below steps:
+* If adding functionality or fixing an issue not already raised on GitHub, raise 
+an issue.
+* Assign the issue(s) to yourself.
+* Fork the project.
+* Create a branch from master.
+* Make the required changes to the project in your local branch.
+* Commit your changes, adding comments referencing the issues that your changes 
+fix.
+* Push this branch to your GitHub project.
+* Open a Pull Request on GitHub.
+* Email me at jlcash@gmail.com to discuss the changes made.
+* Once changes have been agreed, I will merge or close the pull request.
+* Sync the updated master back to your fork.
+* Add a comment to the issues that were fixed. These will be closed.

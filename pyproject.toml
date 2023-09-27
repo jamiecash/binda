@@ -45,6 +45,11 @@ hatch = "hatch.cli:main"
 
 [tool.hatch.build]
 sources = ["src"]
+include = [
+  "example/*",
+  "tests/*.py",
+  "binda.py"  # This will be in the root as [sources] will extract it from src.
+]
 
 [tool.hatch.version]
 source = "vcs"

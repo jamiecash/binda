@@ -29,7 +29,7 @@ class Variable:
 
   Arguments:
     name (str): The name of the variable.
-    size (int): The size in bytes of the variable.
+    size (int): The size of the variable in bytes.
     datatype (type): The datatye of the variable.
     offset (int, optional): The byte offset where the variable starts.
       If not specified, this will be calculated by Structure.
@@ -126,7 +126,8 @@ class DataHandler:
       data (bytes): The data.
       structures (dict of str, Structure, optional): The specification of any 
         data structures. The dict key is the name of the structure that will 
-        be used when reading and updating. If not specified, then 
+        be used when reading and updating. Additional structures can be addes
+        later using [add_structure]. If no structures are specified, then 
         read_structure and write_structure cannot be used, however DataHandler
         can still be used to read and write variables.
       str_encode (str, optional): The string encoding. See 
@@ -235,7 +236,8 @@ class DataHandler:
     
   def read_variable(self, variable:Variable, offset:int=None) -> object:
     """
-    Reads a variable from [data] and converts it to the specified data type.
+    Reads a variable from [data] and converts it to the data type specified in
+    the [variable].
 
     Arguments:
       variable (Variable): The name of the variable to read.
@@ -244,7 +246,7 @@ class DataHandler:
         applied.
 
     Returns:
-      object: The variable converted to the data type specified in [variable].
+      object: The data converted to the data type specified in [variable].
     """
 
     # Get the data as bytes
@@ -278,7 +280,7 @@ class DataHandler:
   def write_structure(self, name:str, df:pd.DataFrame):
     """
     Writes a dataframe back to this instances [data] using the specification 
-    provided by [structures].
+    provided in [structures].
 
     Arguments:
       name (str): The name of the structure to write.
@@ -315,12 +317,11 @@ class DataHandler:
         
   def write_variable(self, data:object, variable:Variable, offset:int=None):
     """
-    Writes a variable to the data, converts it from the specified data type 
-    back to bytes.
+    Writes a variable to the data, converts it back to bytes.
 
     Arguments:
       data (object): The data to write.
-      variable (Variable): The definition of the variable to read.
+      variable (Variable): The definition of the variable to write.
       offset (int, optional): Offset to apply. Added to variable offset. Used
         to write repeating structures. If not specified, then no offset is 
         applied.
