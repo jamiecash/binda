@@ -1,5 +1,5 @@
 [build-system]
-requires = ["hatchling", "hatch-vcs", "hatch-conda-build"]
+requires = ["hatchling", "hatch-vcs", "hatch-conda", "hatch-conda-build"]
 build-backend = "hatchling.build"
 
 [project]
@@ -17,6 +17,8 @@ dependencies = [
   'build',
   'hatchling', # Build system
   'hatch-vcs', # Auto version numbering from GitHub
+  'hatch-conda',
+  'hatch-conda-build',
   'grayskull', # Generating conda meta.yaml from pyproject.yaml
   'twine', # Publishing to PyPi
   'pdoc', # Generating docs from docstrings
