@@ -1,5 +1,5 @@
 {% set name = "binda" %}
-{% set version = "1.0.16" %}
+{% set version = "1.0.17" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/binda-{{ version }}.tar.gz
-  sha256: 4d2f1646ad83fd87ac532b5e8432fb5e8d113cacb4d551745bac681b4f466ab0
+  sha256: 9f61ec23425adfb95a5b90cf9a3aa0b16fd60c059d4f016e281b8ab99dc69c86
 
 build:
   entry_points:
@@ -21,8 +21,6 @@ requirements:
     - python >=3.6
     - hatchling
     - hatch-vcs
-    - hatch-conda
-    - hatch-conda-build
     - pip
   run:
     - python >=3.6
@@ -31,8 +29,6 @@ requirements:
     - build
     - hatchling
     - hatch-vcs
-    - hatch-conda
-    - hatch-conda-build
     - grayskull
     - twine
     - pdoc
