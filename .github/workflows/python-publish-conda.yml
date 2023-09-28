@@ -28,12 +28,12 @@ jobs:
         python -m pip install .
     - name: Generate recepie
       run: |
-        grayskull pypi binda --output conda  
+        grayskull pypi binda
     
     # Test version - local machine    
     - name: Build and publish package
       run: |
-        conda build conda/binda --user __token__ --token ${{ secrets.CONDA_API_TOKEN }}
+        conda build binda --user __token__ --token ${{ secrets.CONDA_API_TOKEN }}
     
     # Deploy version - uses a docker container
     #- name: Build and publish package

@@ -15,7 +15,6 @@ dependencies = [
   'numpy',
 
   'build',
-  'toml',
   'hatchling', # Build system
   'hatch-vcs', # Auto version numbering from GitHub
   'grayskull', # Generating conda meta.yaml from pyproject.yaml
