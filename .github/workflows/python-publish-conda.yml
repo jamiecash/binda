@@ -30,7 +30,7 @@ jobs:
       run: |
         grayskull pypi binda
     - name: Build and publish package
-      uses: jamiecash/conda-package-publish-action
+      uses: jamiecash/conda-package-publish-action@master
       with:
         subDir: 'binda'
         AnacondaToken: ${{ secrets.ANACONDA_TOKEN }}
