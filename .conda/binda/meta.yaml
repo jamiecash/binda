@@ -1,5 +1,5 @@
 {% set name = "binda" %}
-{% set version = "1.0.3" %}
+{% set version = "1.0.9" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/binda-{{ version }}.tar.gz
-  sha256: 79a27e4d7921b1dc7c6e14c20ba20886b8b17e7a795111ee517c3cc5f0064f34
+  sha256: 86c1eef6c48ee520f244aac2ebcc8cd62f2e0c0ec97d88b9c1a5ea8719c40e82
 
 build:
   entry_points:

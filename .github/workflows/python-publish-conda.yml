@@ -1,8 +1,15 @@
-name: Publish to Anaconda
+# GitHub Workflow Action
+# Publish package to Conda using conda build when a release is created.
+
+name: Publish to Conda
 
 on:
   release:
     types: [published]
+
+permissions:
+  contents: read
+
 jobs:
   deploy:
 
@@ -18,13 +25,20 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install grayskull
-        pip install hatch
-    - name: Generate conda recepie
+        python -m pip install .
+    - name: Generate recepie
       run: |
-        grayskull pypi binda
-    - name: Publish to Conda
-      uses: maxibor/conda-package-publish-action@v1.1
-      with:
-        subDir: 'binda'
-        AnacondaToken: ${{ secrets.ANACONDA_TOKEN }}  
+        grayskull pypi binda --output conda  
+    
+    # Test version - local machine    
+    - name: Build and publish package
+      run: |
+        conda build conda/binda --user __token__ --token ${{ secrets.CONDA_API_TOKEN }}
+    
+    # Deploy version - uses a docker container
+    #- name: Build and publish package
+    #  uses: fcakyon/conda-publish-action@v1.3
+    #  with:
+    #    subdir: '.conda/binda'
+    #    anacondatoken: {{ secrets.CONDA_API_TOKEN }}
+    #    platforms: 'win osx linux'

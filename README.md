@@ -1,4 +1,5 @@
 # binda
+
 Read and write binary data using Pandas.
 
 Map the data in the binary file to variables, single data structures or 
@@ -6,16 +7,26 @@ repeating data structures. Once mapped, the binary file can be viewed and
 edited using Pandas DataFrames.
 
 ## Installation
-binda can be installed using pip.
+
+binda can be installed using pip or conda.
+
 ```
 pip install binda
 ```
 
+or
+
+```
+conda install binda
+```
+
 ## Docs
+
 The documentation for binda is available on GitHub Docs here: 
 https://jamiecash.github.io/binda/binda.html
 
 ## Usage
+
 Given the following binary data (represented as hex):
 ```
 42:4c:4f:43:4b:44:41:54:41:64:4a:61:6d:69:65:20
@@ -113,11 +124,13 @@ b'\xc8Bobby Smythe   \x01'
 ```
 
 ## Examples
+
 2 Jupyter notebooks are provided in the examples folder, one containing the code 
 from the **Usage** section above and one containing an example on reading and 
 writimg Exif data to a .jpeg file.
 
 ## Joining the Project Team
+
 This project is maintained on [GitHub](https://github.com/jamiecash/binda):
 
 If you would like to contribute to this project by fixing issues or adding 
@@ -135,4 +148,4 @@ fix.
 * Email me at jlcash@gmail.com to discuss the changes made.
 * Once changes have been agreed, I will merge or close the pull request.
 * Sync the updated master back to your fork.
-* Add a comment to the issues that were fixed and once tested, close them.
+* Close the issues that were fixed.
