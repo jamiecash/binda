@@ -29,11 +29,9 @@ jobs:
     - name: Generate recepie
       run: |
         grayskull pypi binda
-    
-    # Test version - local machine    
     - name: Build and publish package
       uses: fcakyon/conda-publish-action@v1.3
       with:
-        
-        anacondatoken: {{ secrets.CONDA_API_TOKEN }}
+        subdir: 'binda'
+        anacondatoken: ${{ secrets.ANACONDA_TOKEN }}
         platforms: 'win osx linux'
