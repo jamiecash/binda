@@ -14,12 +14,11 @@ dependencies = [
   'pandas',
   'numpy',
 
-  'build',
+  # 'build', # Building the package
   'hatchling', # Build system
   'hatch-vcs', # Auto version numbering from GitHub
-  'grayskull', # Generating conda meta.yaml from pyproject.yaml
-  'twine', # Publishing to PyPi
-  'pdoc', # Generating docs from docstrings
+  # 'twine', # Publishing to PyPi
+  # 'pdoc', # Generating docs from docstrings
   'flake8', # Build tests
   'pytest' # Build tests
 ]
@@ -52,14 +51,24 @@ license = {file = "LICENSE"}
 [project.scripts]
 hatch = "hatch.cli:main"
 
+# Tests and coverage
+[tool.coverage.report]
+fail_under = 80
+
+[tool.coverage.run]
+branch = true
+include = ["src/*"]
+command_line = "-m unittest discover -s tests/"
+
+# Build
 [tool.hatch.build]
 sources = ["src"]
 include = [
   "example/*",
-  "tests/*.py",
   "binda.py"  # This will be in the root as [sources] will extract it from src.
 ]
 
+# Versioning
 [tool.hatch.version]
 source = "vcs"
 
@@ -69,8 +78,3 @@ version-file = "_version.py"
 [tool.hatch.version.raw-options]
 version_scheme = "python-simplified-semver"
 git_describe_command = ["git", "describe", "--tags", "--abbrev=0"]
-
-
-
-
-
