@@ -18,7 +18,7 @@ dependencies = [
   'hatchling', # Build system
   'hatch-vcs', # Auto version numbering from GitHub
   # 'twine', # Publishing to PyPi
-  # 'pdoc', # Generating docs from docstrings
+  'pdoc', # Generating docs from docstrings
   'flake8', # Build tests
   'pytest' # Build tests
 ]
