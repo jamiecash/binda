@@ -14,10 +14,10 @@ dependencies = [
   'pandas',
   'numpy',
 
-  # 'build', # Building the package
+  'build', # Building the package
   'hatchling', # Build system
   'hatch-vcs', # Auto version numbering from GitHub
-  # 'twine', # Publishing to PyPi
+  'twine', # Publishing to PyPi
   'pdoc', # Generating docs from docstrings
   'flake8', # Build tests
   'pytest' # Build tests
