@@ -40,6 +40,6 @@ jobs:
         export PYTHONPATH=./src:./tests:$PYTHONPATH
         echo "PYTHONPATH=$PYTHONPATH"
         echo "PYTHONPATH=$PYTHONPATH" >> $GITHUB_ENV
-    - name: Test with unittest
+    - name: Test
       run: |
-        unittest
+        pytest

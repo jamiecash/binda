@@ -20,7 +20,7 @@ dependencies = [
   # 'twine', # Publishing to PyPi
   'pdoc', # Generating docs from docstrings
   'flake8', # Build tests
-  'unittest' # Build tests
+  'pytest' # Build tests
 ]
 requires-python = ">=3.6"
 classifiers = [
