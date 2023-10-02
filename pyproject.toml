@@ -19,8 +19,8 @@ dependencies = [
   'hatch-vcs', # Auto version numbering from GitHub
   # 'twine', # Publishing to PyPi
   'pdoc', # Generating docs from docstrings
-  'flake8', # Build tests
-  'pytest' # Build tests
+  # 'flake8', # Build tests
+  # 'pytest' # Build tests
 ]
 requires-python = ">=3.6"
 classifiers = [
